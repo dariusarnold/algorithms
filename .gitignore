@@ -2,3 +2,7 @@
 sorting/selectionsort/\.idea/
 
 sorting/selectionsort/cmake-build-debug/
+
+sorting/\.idea/
+
+sorting/cmake-build-debug/

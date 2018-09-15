@@ -11,7 +11,7 @@
 std::vector<int> ascending{1, 2, 3, 4, 5};
 std::vector<int> descending{5, 4, 3, 2, 1};
 std::vector<int> unsorted{2, 3, 5, 1, 4};
-std::vector<int> multiples{3, 3, 3, 2, 1, 2, 1};
+std::vector<int> multiples{3, 3, 4, 3, 2, 4, 2, 4, 4, 1};
 std::vector<int> empty{};
 std::vector<int> one_element{42};
 std::vector<int> two_elements_in_order{6, 9};

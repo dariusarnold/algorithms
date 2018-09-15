@@ -15,7 +15,7 @@ include_directories(googletest/googletest/include googletest/googletest)
 add_subdirectory(src)
 
 # main executable
-add_executable(selectionsort src/main.cpp src/selectionSort.h)
+add_executable(main src/main.cpp src/selectionSort.h src/bubbleSort.h)
 
 # unit testing executable
 add_executable(runUnitTests tests/testSelectionSort.cpp)
