@@ -32,11 +32,17 @@ int main() {
             {"multiples", {3, 3, 4, 3, 2, 4, 2, 4, 4, 1}}
             };
 
+    bool allTestsPassed = true;
     for (auto pair : testInputs){
         auto sortInput = pair.second;
         sortFunction(sortInput.begin(), sortInput.end());
         std::cout << pair.first << ": ";     // print input sequence name
-        std::is_sorted(sortInput.begin(), sortInput.end()) ? std::cout << "PASS" : std::cout << "FAIL";
+        if (std::is_sorted(sortInput.begin(), sortInput.end())){
+            std::cout << "PASS";
+        }else{
+            std::cout << "FAIL";
+            allTestsPassed = false;
+        }
         std::cout << std::endl;
         // print before/after of sequence
         std::cout << std::string(4, ' ');
@@ -45,5 +51,6 @@ int main() {
         printVector(sortInput);
         std::cout << std::endl;
     }
+    allTestsPassed ? std::cout << "ALL PASS" : std::cout << "NOT ALL PASS";
     return 0;
 }
