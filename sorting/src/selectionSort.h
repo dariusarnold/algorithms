@@ -5,8 +5,8 @@
 #ifndef SELECTIONSORT_SELECTIONSORT_H
 #define SELECTIONSORT_SELECTIONSORT_H
 
-template<typename Iterator>
-void selectionSort(Iterator begin, Iterator end);
+template <typename Iterator>
+void selectionSort(Iterator first, Iterator last);
 
 #include "selectionSort.cpp"
 

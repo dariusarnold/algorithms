@@ -6,7 +6,7 @@
 #define SELECTIONSORT_BUBBLESORT_H
 
 template <typename Iterator>
-void bubbleSort(Iterator begin, Iterator end);
+void bubbleSort(Iterator first, Iterator last);
 
 #include "bubbleSort.cpp"
 

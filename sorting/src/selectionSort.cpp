@@ -23,7 +23,7 @@ void iter_swap(Iterator &a, Iterator &b){
     *b = temp;
 }
 
-template<typename Iterator>
+template <typename Iterator>
 void selectionSort(Iterator begin, Iterator end){
     for (auto outer_iterator = begin; outer_iterator != end; ++outer_iterator){
         Iterator min_element = outer_iterator;
