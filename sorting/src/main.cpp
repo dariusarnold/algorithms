@@ -4,6 +4,7 @@
 
 #include "selectionSort.h"
 #include "bubbleSort.h"
+#include "insertionSort.h"
 
 template <typename T>
 void printVector(const T& vec){
@@ -15,7 +16,7 @@ void printVector(const T& vec){
 
 template <typename T>
 void sortFunction(T startIterator, T endIterator){
-    bubbleSort(startIterator, endIterator);
+    insertionSort(startIterator, endIterator);
 }
 
 int main() {
