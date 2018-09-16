@@ -5,109 +5,71 @@
 #include "gtest/gtest.h"
 #include <vector>
 #include <algorithm>
+#include <functional>
+#include <utility>
+#include <map>
 
 #include "../src/selectionSort.h"
+#include "../src/bubbleSort.h"
 
-std::vector<int> ascending{1, 2, 3, 4, 5};
-std::vector<int> descending{5, 4, 3, 2, 1};
-std::vector<int> unsorted{2, 3, 5, 1, 4};
-std::vector<int> multiples{3, 3, 4, 3, 2, 4, 2, 4, 4, 1};
-std::vector<int> empty{};
-std::vector<int> one_element{42};
-std::vector<int> two_elements_in_order{6, 9};
-std::vector<int> two_elements_no_order{9, 6};
-std::vector<int> same_two{9, 9};
+
+class GenericSortingTest : public ::testing::TestWithParam<std::pair<const std::string, std::vector<int>>> {
+
+};
 
 /**
- * Edge case of empty input: Sorting should be able to handle an empty sequence
+ * This test runs for all key/value combinations in testInputs.
+ * It sorts them using selectionSort and compares the result to the
+ * official std::sort implementation.
  */
-TEST(SelectionSortTestCase, EmptySequence){
-    std::vector<int> v1 = empty;
+TEST_P(GenericSortingTest, SelectionSortTest){
+    auto v1 = GetParam().second;
+    auto v2 = GetParam().second;
     selectionSort(v1.begin(), v1.end());
-    std::vector<int> v2 = v1;
     std::sort(v2.begin(), v2.end());
-    EXPECT_EQ(v1, v2);
-}
-
-
-/**
- * Trivial case: Only one element in input sequence
- */
-TEST(SelectionSortTestCase, OneElement){
-    std::vector<int> v1 = one_element;
-    selectionSort(v1.begin(), v1.end());
-    std::vector<int> v2 = v1;
-    std::sort(v2.begin(), v2.end());
-    EXPECT_EQ(v1, v2);
+    EXPECT_EQ(v2, v1);
 }
 
 /**
- * Test all combinations of two values: different but sorted, different and unsorted, different
+ * This test runs for all key/value combinations in testInputs.
+ * It sorts them using bubbleSort and compares the result to the
+ * official std::sort implementation.
  */
-TEST(SelectionSortTestCase, TwoAlreadySortedElements){
-    std::vector<int> v1 = two_elements_in_order;
-    selectionSort(v1.begin(), v1.end());
-    std::vector<int> v2 = v1;
+TEST_P(GenericSortingTest, BubbleSortTest){
+    auto v1 = GetParam().second;
+    auto v2 = GetParam().second;
+    bubbleSort(v1.begin(), v1.end());
     std::sort(v2.begin(), v2.end());
-    EXPECT_EQ(v1, v2);
+    EXPECT_EQ(v2, v1);
 }
 
-TEST(SelectionSortTestCase, TwoUnsortedElements){
-    std::vector<int> v1 = two_elements_no_order;
-    selectionSort(v1.begin(), v1.end());
-    std::vector<int> v2 = v1;
-    std::sort(v2.begin(), v2.end());
-    EXPECT_EQ(v1, v2);
-}
-
-TEST(SelectionSortTestCase, SameTwoElements){
-    std::vector<int> v1 = same_two;
-    selectionSort(v1.begin(), v1.end());
-    std::vector<int> v2 = v1;
-    std::sort(v2.begin(), v2.end());
-    EXPECT_EQ(v1, v2);
-}
 
 /**
- * Test whether input in already sorted descending order is sorted correctly
+ * This custom test suffix generator returns the string name for the pair of values
+ * of an element in the map testInputs.
  */
-TEST(SelectionSortTestCase, DescendingOrder){
-    std::vector<int> v1 = descending;
-    selectionSort(v1.begin(), v1.end());
-    std::vector<int> v2 = v1;
-    std::sort(v2.begin(), v2.end());
-    EXPECT_EQ(v1, v2);
-}
+struct getInputName{
+    template <typename ParamType>
+    std::string operator()(const testing::TestParamInfo<ParamType>& info) const{
+        return info.param.first;
+    }
+};
 
 /**
- * Test whether input in already sorted ascending order is sorted correctly
+ * Map containing all input sequences. Their keys are the test names to be used.
  */
-TEST(SelectionSortTestCase, AscendingOrder){
-    std::vector<int> v1 = ascending;
-    selectionSort(v1.begin(), v1.end());
-    std::vector<int> v2 = v1;
-    std::sort(v2.begin(), v2.end());
-    EXPECT_EQ(v1, v2);
-}
+std::map<std::string, std::vector<int>> testInputs = {
+        {"empty", {}},
+        {"oneElement", {42}},
+        {"sameTwo", {9, 9}},
+        {"twoElementsOrdered", {6, 9}},
+        {"twoElementsUnordered", {9, 6}},
+        {"ascending", {1, 3, 6, 9, 10}},
+        {"descending", {50, 40, 35, 25, 10}},
+        {"unsorted", {2, 3, 5, 1, 9, 4}},
+        {"multiples", {3, 3, 4, 3, 2, 4, 2, 4, 4, 1}}
+};
 
-/**
- * Test whether input in random order is sorted correctly
- */
-TEST(SelectionSortTestCase, RandomOrder){
-    std::vector<int> v1 = unsorted;
-    selectionSort(v1.begin(), v1.end());
-    std::vector<int> v2 = v1;
-    std::sort(v2.begin(), v2.end());
-    EXPECT_EQ(v1, v2);
-}
 
-/**
- * Test whether input with multiples of the same values is sorted correctly. Does not test
- */
-TEST(SelectionSortTestCase, MultiplesOfSameValues){
-    std::vector<int> v1 = multiples;
-    selectionSort(v1.begin(), v1.end());
-    std::vector<int> v2 = v1;
-    std::sort(v2.begin(), v2.end());
-    EXPECT_EQ(v1, v2);
-}
+INSTANTIATE_TEST_CASE_P(InstantiationName, GenericSortingTest, ::testing::ValuesIn(testInputs),
+                        getInputName());
