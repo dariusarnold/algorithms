@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include <functional>
+#include <map>
 
 #include "selectionSort.h"
 #include "bubbleSort.h"
@@ -20,39 +20,30 @@ void sortFunction(T startIterator, T endIterator){
 }
 
 int main() {
-    std::vector<int> ascending{1, 2, 3, 4, 5};
-    std::vector<int> descending{5, 4, 3, 2, 1};
-    std::vector<int> unsorted{2, 3, 5, 1, 4};
-    std::vector<int> multiples{3, 3, 4, 3, 2, 4, 2, 4, 4, 1};
-    std::vector<int> empty{};
+    std::map<std::string, std::vector<int>> testInputs = {
+            {"empty", {}},
+            {"oneElement", {42}},
+            {"sameTwo", {9, 9}},
+            {"twoElementsOrdered", {6, 9}},
+            {"twoElementsUnordered", {9, 6}},
+            {"ascending", {1, 3, 6, 9, 10}},
+            {"descending", {50, 40, 35, 25, 10}},
+            {"unsorted", {2, 3, 5, 1, 9, 4}},
+            {"multiples", {3, 3, 4, 3, 2, 4, 2, 4, 4, 1}}
+            };
 
-    //sortFunction(bubbleSort, unsorted.begin(), unsorted.end());
-    //printVector(unsorted);
-
-    printVector(descending);
-    sortFunction(descending.begin(), descending.end());
-    printVector(descending);
-    std::cout << std::endl;
-
-    printVector(ascending);
-    sortFunction(ascending.begin(), ascending.end());
-    printVector(ascending);
-    std::cout << std::endl;
-
-    printVector(unsorted);
-    sortFunction(unsorted.begin(), unsorted.end());
-    printVector(unsorted);
-    std::cout << std::endl;
-
-    printVector(empty);
-    sortFunction(empty.begin(), empty.end());
-    printVector(empty);
-    std::cout << std::endl;
-
-    printVector(multiples);
-    sortFunction(multiples.begin(), multiples.end());
-    printVector(multiples);
-    std::cout << std::endl;
-
+    for (auto pair : testInputs){
+        auto sortInput = pair.second;
+        sortFunction(sortInput.begin(), sortInput.end());
+        std::cout << pair.first << ": ";     // print input sequence name
+        std::is_sorted(sortInput.begin(), sortInput.end()) ? std::cout << "PASS" : std::cout << "FAIL";
+        std::cout << std::endl;
+        // print before/after of sequence
+        std::cout << std::string(4, ' ');
+        printVector(pair.second);
+        std::cout << std::string(4, ' ');
+        printVector(sortInput);
+        std::cout << std::endl;
+    }
     return 0;
 }
