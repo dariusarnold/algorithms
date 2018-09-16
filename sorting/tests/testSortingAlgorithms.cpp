@@ -10,6 +10,7 @@
 #include "../src/selectionSort.h"
 #include "../src/bubbleSort.h"
 #include "../src/insertionSort.h"
+#include "../src/mergeSort.h"
 
 
 /**
@@ -64,6 +65,8 @@ class BubbleSortTest : public GenericSortingTest{};
 
 class InsertionSortTest : public GenericSortingTest{};
 
+class MergeSortTest : public GenericSortingTest{};
+
 
 /**
  * Create test patterns that run the sorting algorithm for all vectors in testInputs
@@ -94,6 +97,13 @@ TEST_P(InsertionSortTest, SameSortResultsAsSTLSort){
     EXPECT_EQ(v2, v1);
 }
 
+TEST_P(MergeSortTest, SameSortResultsAsSTLSort){
+    auto v1 = GetParam().second;
+    auto v2 = GetParam().second;
+    mergeSort(v1.begin(), v1.end());
+    std::sort(v2.begin(), v2.end());
+    EXPECT_EQ(v2, v1);}
+
 /**
  * Instantiate test cases with all parameters (differently sorted std::vectors) in testInputs.
  */
@@ -104,4 +114,7 @@ INSTANTIATE_TEST_CASE_P(SortingTest, BubbleSortTest, ::testing::ValuesIn(testInp
                         BubbleSortTest::printToStringName());
 
 INSTANTIATE_TEST_CASE_P(SortingTest, InsertionSortTest, ::testing::ValuesIn(testInputs),
+                        InsertionSortTest::printToStringName());
+
+INSTANTIATE_TEST_CASE_P(SortingTest, MergeSortTest, ::testing::ValuesIn(testInputs), 
                         InsertionSortTest::printToStringName());
