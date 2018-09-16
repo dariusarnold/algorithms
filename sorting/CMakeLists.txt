@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(selectionsort)
+project(sorting)
 
 # Compiler/CMake settings
 set(CMAKE_CXX_STANDARD 17)
@@ -18,6 +18,6 @@ add_subdirectory(src)
 add_executable(main src/main.cpp src/selectionSort.h src/bubbleSort.h)
 
 # unit testing executable
-add_executable(runUnitTests tests/testSelectionSort.cpp)
+add_executable(runUnitTests tests/testSortingAlgorithms.cpp)
 target_link_libraries(runUnitTests gtest gtest_main)
 add_test(runUnitTests runUnitTests)

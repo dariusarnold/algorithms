@@ -9,6 +9,7 @@
 
 #include "../src/selectionSort.h"
 #include "../src/bubbleSort.h"
+#include "../src/insertionSort.h"
 
 
 /**
@@ -57,13 +58,11 @@ public:
  * will be split. Additionally, more tests than just comparing to the std::sort
  * result could be implemented.
  */
-class SelectionSortTest : public GenericSortingTest{
+class SelectionSortTest : public GenericSortingTest{};
 
-};
+class BubbleSortTest : public GenericSortingTest{};
 
-class BubbleSortTest : public GenericSortingTest{
-
-};
+class InsertionSortTest : public GenericSortingTest{};
 
 
 /**
@@ -87,6 +86,13 @@ TEST_P(BubbleSortTest, SameSortResultsAsSTLSort){
     EXPECT_EQ(v2, v1);
 }
 
+TEST_P(InsertionSortTest, SameSortResultsAsSTLSort){
+    auto v1 = GetParam().second;
+    auto v2 = GetParam().second;
+    insertionSort(v1.begin(), v1.end());
+    std::sort(v2.begin(), v2.end());
+    EXPECT_EQ(v2, v1);
+}
 
 /**
  * Instantiate test cases with all parameters (differently sorted std::vectors) in testInputs.
@@ -96,3 +102,6 @@ INSTANTIATE_TEST_CASE_P(SortingTest, SelectionSortTest, ::testing::ValuesIn(test
 
 INSTANTIATE_TEST_CASE_P(SortingTest, BubbleSortTest, ::testing::ValuesIn(testInputs),
                         BubbleSortTest::printToStringName());
+
+INSTANTIATE_TEST_CASE_P(SortingTest, InsertionSortTest, ::testing::ValuesIn(testInputs),
+                        InsertionSortTest::printToStringName());
