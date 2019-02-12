@@ -7,10 +7,10 @@
 #include <algorithm>
 #include <map>
 
-#include "../src/selectionSort.h"
-#include "../src/bubbleSort.h"
-#include "../src/insertionSort.h"
-#include "../src/mergeSort.h"
+#include "selectionSort.h"
+#include "bubbleSort.h"
+#include "insertionSort.h"
+#include "mergeSort.h"
 
 
 /**
@@ -102,7 +102,8 @@ TEST_P(MergeSortTest, SameSortResultsAsSTLSort){
     auto v2 = GetParam().second;
     mergeSort(v1.begin(), v1.end());
     std::sort(v2.begin(), v2.end());
-    EXPECT_EQ(v2, v1);}
+    EXPECT_EQ(v2, v1);
+}
 
 /**
  * Instantiate test cases with all parameters (differently sorted std::vectors) in testInputs.

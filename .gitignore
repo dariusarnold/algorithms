@@ -3,6 +3,8 @@ sorting/selectionsort/\.idea/
 
 sorting/selectionsort/cmake-build-debug/
 
-sorting/\.idea/
+.idea
 
-sorting/cmake-build-debug/
+extern/googletest
+
+cmake-build-debug/

@@ -1,13 +1,31 @@
-//
-// Created by darius on 15/09/18.
-//
-
-#ifndef SELECTIONSORT_SELECTIONSORT_H
-#define SELECTIONSORT_SELECTIONSORT_H
+#ifndef SORTING_SELECTIONSORT_H
+#define SORTING_SELECTIONSORT_H
 
 template <typename Iterator>
-void selectionSort(Iterator first, Iterator last);
+inline
+Iterator iter_min(Iterator a, Iterator b){
+    // Return iterator with minimum value
+    return (*a < *b ? a : b);
+}
 
-#include "selectionSort.cpp"
+template <typename Iterator>
+inline
+void iter_swap(Iterator &a, Iterator &b){
+    // Swap values of two iterators
+    auto temp = *a;
+    *a = *b;
+    *b = temp;
+}
 
-#endif //SELECTIONSORT_SELECTIONSORT_H
+template <typename Iterator>
+void selectionSort(Iterator begin, Iterator end){
+    for (auto outer_iterator = begin; outer_iterator != end; ++outer_iterator){
+        Iterator min_element = outer_iterator;
+        for (auto inner_iterator = outer_iterator; inner_iterator != end; ++inner_iterator){
+            min_element = iter_min(min_element, inner_iterator);
+        }
+        iter_swap(outer_iterator, min_element);
+    }
+}
+
+#endif //SORTING_SELECTIONSORT_H

@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <map>
+#include <algorithm>
 
 #include "selectionSort.h"
 #include "bubbleSort.h"

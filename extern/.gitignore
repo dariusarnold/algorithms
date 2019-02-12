@@ -1,0 +1,4 @@
+# Ignore everything in this directory
+*
+# Except this file, so the "empty" directory can be added to git
+!.gitignore

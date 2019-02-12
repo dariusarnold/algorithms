@@ -1,13 +1,15 @@
-//
-// Created by darius on 15/09/18.
-//
-
-#ifndef SELECTIONSORT_BUBBLESORT_H
-#define SELECTIONSORT_BUBBLESORT_H
+#ifndef SORTING_BUBBLESORT_H
+#define SORTING_BUBBLESORT_H
 
 template <typename Iterator>
-void bubbleSort(Iterator first, Iterator last);
+void bubbleSort(Iterator begin, Iterator end){
+    for (auto outer_iterator = begin; outer_iterator != end; ++outer_iterator){
+        for (auto inner_iterator = begin; inner_iterator != (end-1); ++inner_iterator){
+            if (*inner_iterator > *(inner_iterator+1)){
+                std::iter_swap(inner_iterator, inner_iterator+1);
+            }
+        }
+    }
+}
 
-#include "bubbleSort.cpp"
-
-#endif //SELECTIONSORT_BUBBLESORT_H
+#endif //SORTING_BUBBLESORT_H
