@@ -9,26 +9,18 @@ void quickSort(Iterator begin, Iterator end){
     }
     auto right = std::prev(end);
     auto left = std::next(begin);
-    if (left == right){
-        // two elements: if unsorted swap, else return
-        if (*begin > *right){
-            std::iter_swap(begin, right);
-            return;
-        }
-        return;
-    }
     auto pivot = begin;
     while (left < right) {
         if (*left <= *pivot) {
             // leave elements in position if no swap required
             ++left;
         } else {
-            // leave left so the swapped in element from right is checked in the next iteration
+            // dont increment left so the swapped in element from right is checked in the next iteration
             std::iter_swap(left, right);
             --right;
         }
     }
-    if (*left < *pivot) {
+    if (*pivot > *left) {
         std::iter_swap(left, pivot);
     }
     quickSort(begin, left);
