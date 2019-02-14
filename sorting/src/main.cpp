@@ -7,6 +7,7 @@
 #include "bubbleSort.h"
 #include "insertionSort.h"
 #include "mergeSort.h"
+#include "quickSort.h"
 
 template <typename T>
 void printVector(const T& vec){
@@ -18,7 +19,7 @@ void printVector(const T& vec){
 
 template <typename T>
 void sortFunction(T startIterator, T endIterator){
-    mergeSort(startIterator, endIterator);
+    quickSort(startIterator, endIterator);
 }
 
 int main() {
@@ -35,11 +36,13 @@ int main() {
             };
 
     bool allTestsPassed = true;
-    for (auto pair : testInputs){
+    for (const auto& pair : testInputs){
         auto sortInput = pair.second;
+        auto stdSortInput = pair.second;
         sortFunction(sortInput.begin(), sortInput.end());
+        std::sort(stdSortInput.begin(), stdSortInput.end());
         std::cout << pair.first << ": ";     // print input sequence name
-        if (std::is_sorted(sortInput.begin(), sortInput.end())){
+        if (stdSortInput == sortInput){
             std::cout << "PASS";
         }else{
             std::cout << "FAIL";
@@ -54,5 +57,5 @@ int main() {
         std::cout << std::endl;
     }
     allTestsPassed ? std::cout << "ALL PASS" : std::cout << "NOT ALL PASS";
-    return 0;
+    return !allTestsPassed;
 }
